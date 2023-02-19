@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="parent">
+        <h1 id="title"></h1>
+        <p id="body"></p>
+        <p id="author"></p>
+    </div>
+    
+</body>
+</html>
+<script>
+    const getData=()=>{
+        // event.preventDefault()
+        fetch("https://rich-gold-hippo-cuff.cyclic.app/notes/",{
+            headers:{
+                "Authorization":localStorage.getItem("token")
+            }
+        }).then(res=>res.json())
+        .then(res=>
+        displayData(res)
+        )
+        .catch(err=>console.log(err))
+    }
+    getData()
+    function displayData(data){
+        let parent = document.getElementById("parent");
+        parent.innerHTML=null;
+        data.forEach(element => {
+            let card = document.createElement("div");
+
+            let title = document.createElement("h1");
+            title.textContent=element.title;
+
+            let note = document.createElement("p")
+            note.textContent=element.note;
+
+            let category = document.createElement("p");
+            category.textContent=element.category
+
+            card.append(title,note,category)
+            parent.append(card)
+            
+            
+        });
+    }
+    displayData(data)
+</script>

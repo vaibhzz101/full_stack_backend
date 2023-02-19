@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Login</title>
+</head>
+<body>
+    <div id="container">
+        <h1>Login Page</h1>
+  
+        <input type="text" id="email" placeholder="Enter your email...">
+        <input type="password" id="pass" placeholder="password...">
+        <button onclick="onLogin()">Log in</button>
+    </div>
+    
+</body>
+</html>
+<script>
+    const onLogin=()=>{
+        event.preventDefault()
+        const payload={
+            email: document.getElementById("email").value,
+            pass:document.getElementById("pass").value
+
+        }
+        fetch("https://rich-gold-hippo-cuff.cyclic.app//users/login",{
+            method:"POST",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body:JSON.stringify(payload)
+        }).then(res=>res.json())
+        .then(res=>{
+            console.log(res)
+            localStorage.setItem("token",res.token)
+        })
+        .catch(err=>console.log(err))
+    }
+</script>

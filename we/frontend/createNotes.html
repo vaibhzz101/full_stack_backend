@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <h1>Note Creation Page</h1>
+        <input type="text" id="title" placeholder="Enter Note Title...">
+        <input type="text" id="body" placeholder="Enter Note Body...">
+        <input type="text" id="cat" placeholder="Enter Note category...">
+        <button onclick="onAdd()">Add</button>
+    </div>
+    
+</body>
+</html>
+<script>
+        const onAdd = ()=>{
+            event.preventDefault()
+        const payload = {
+            title: document.getElementById("title").value,
+            body: document.getElementById("body").value,
+            cat:document.getElementById("cat").value
+         
+        }
+        fetch("https://rich-gold-hippo-cuff.cyclic.app/notes/create", {
+            method:"POST",
+            headers:{
+                "Content-type":"application/json",
+                "Authorization": localStorage.getItem("token")
+            },
+            body: JSON.stringify(payload)
+        }).then(res => res.json())
+        .then(res=> console.log(res))
+        .catch(err=>console.log(err))
+    }
+</script>
