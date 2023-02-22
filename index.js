@@ -1,4 +1,4 @@
-// index page
+// index page of full stack backend
 const express = require("express")
 const {connection}= require("./config/db")
 
